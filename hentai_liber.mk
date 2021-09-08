@@ -14,21 +14,39 @@
 # limitations under the License.
 #
 
-# Inherit from those products. Most specific first.
+#
+# All components inherited here go to system image
+#
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
+
+#
+# All components inherited here go to system_ext image
+#
+$(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_system_ext.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system_ext.mk)
+
+# All components inherited here go to product image
+#
+$(call inherit-product, vendor/hentai/build/product/hentai_product.mk)
+#
+# All components inherited here go to vendor image
+#
+# TODO(b/136525499): move *_vendor.mk into the vendor makefile later
+$(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_vendor.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_vendor.mk)
 
 # Inherit from liber device
 $(call inherit-product, device/motorola/liber/device.mk)
 
-# Inherit some common PixelExperience stuff.
-TARGET_BOOT_ANIMATION_RES := 1080
-TARGET_GAPPS_ARCH := arm64
-$(call inherit-product, vendor/aosp/config/common_full_phone.mk)
+# Hentai Dark Wallpeper
+PRODUCT_PACKAGES += HentaiWallpaperDark
+
+# Inherit some common hentai stuff.
+$(call inherit-product, vendor/hentai/config/common_telephony.mk)
 
 # Device identifier. This must come after all inclusions.
-PRODUCT_NAME := aosp_liber
+PRODUCT_NAME := hentai_liber
 PRODUCT_DEVICE := liber
 PRODUCT_BRAND := motorola
 PRODUCT_MODEL := Motorola One Fusion+
@@ -40,10 +58,5 @@ PRODUCT_AAPT_PREF_CONFIG := xxxhdpi
 # Boot animation
 TARGET_SCREEN_HEIGHT := 2340
 TARGET_SCREEN_WIDTH := 1080
-
-# Build info
-PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRODUCT_NAME=liber_retail \
-    PRIVATE_BUILD_DESC="liber_retail-user 10 QPIS30.73-33-6 fffd8e release-keys"
 
 PRODUCT_GMS_CLIENTID_BASE := android-motorola

@@ -15,9 +15,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/aosp_liber.mk
+    $(LOCAL_DIR)/hentai_liber.mk
 
 COMMON_LUNCH_CHOICES := \
-    aosp_liber-eng \
-    aosp_liber-user \
-    aosp_liber-userdebug
+    hentai_liber-eng \
+    hentai_liber-user \
+    hentai_liber-userdebug
